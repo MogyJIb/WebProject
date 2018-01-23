@@ -1,0 +1,50 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Zhecka
+  Date: 04.12.2017
+  Time: 22:36
+  To change this template use File | Settings | File Templates.
+-->
+
+<html>
+<meta charset="UTF-8">
+  <head>
+    <title>Travel agency</title>
+
+    <link href="styles/indexNavStyle.css" rel="stylesheet">
+    <link href="styles/selectListStyle.css" rel="stylesheet">
+
+    <script src="scripts/servletHandleScript.js"></script>
+
+
+  </head>
+  <body>
+
+  <nav class="top-menu">
+    <a class="navbar-logo" href=""><img src="http://liyacruise.com/wp-content/uploads/2016/09/logo.png"></a>
+    <ul class="menu-main">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Tours</a></li>
+      <li><a href="#">Agencies</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <ul id="menu-auth" class="menu-main">
+      <li><a href="loginForm.html">Login</a></li>
+      <li><a href="registerForm.html">Register</a></li>
+    </ul>
+  </nav>
+
+  <select id = "toursSelectList"  size="8" >
+
+  </select>
+  <div id = "dd"></div>
+  <script>
+      var getToursData = function(request)
+      {
+          var out =request.responseText;
+          document.getElementById("dd").innerHTML =out;
+      }
+      sendRequest("GET","/getAllTours","",getToursData,"");
+  </script>
+  </body>
+</html>

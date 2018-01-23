@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="TravelAgency" docBase="TravelAgency" crossContext="true" reloadable="true" >
+    <Resource
+            name="jdbc/TravelAgency"
+            author="Container"
+            type="javax.sql.DataSource"
+            maxTotal="32"
+            maxIdle="8"
+            maxWaitMillis="10000"
+            username="Zhecka"
+            password="Zhecka"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/TravelAgency"
+        />
+</Context>

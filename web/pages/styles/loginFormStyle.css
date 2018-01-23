@@ -1,0 +1,111 @@
+.loginFormContainer{
+	height: 800px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loginForm{
+	margin: 0px auto;
+}
+::-webkit-input-placeholder{
+	color: rgba(76,99,137,0.62);
+}
+:-moz-placeholder{
+	color: rgba(76,99,137,0.62);
+}
+#loginForm *:focus {outline: none;}
+
+
+#loginForm ul {
+	width:350px;
+	list-style-type:none;
+	list-style-position:outside;
+	margin:0px;
+	padding:0px;
+}
+#loginForm li{
+		margin-left:50px;
+	  padding:12px;
+	  border-bottom:1px solid #eee;
+	  position:relative;
+  }
+
+#loginForm  li:first-child, #loginForm li:last-child {
+	border-bottom:1px solid #777;
+}
+
+#loginForm  h2 {
+	margin:0;
+	display: inline;
+}
+.required_notification {
+	color: #d70f16;
+	margin:5px 3px 0 0;
+}
+
+#loginForm label {
+	width:150px;
+	margin-top: 3px;
+	display:inline-block;
+	float:left;
+	padding:3px;
+}
+#loginForm input {
+	height:20px;
+	width:250px;
+	padding:5px 8px;
+}
+#loginForm button {margin-left:100px;}
+
+button {
+	background-color: #4d444a;
+	background: -webkit-gradient(linear, left top, left bottom, from(#60575d), to(#4d444a));
+	background: -webkit-linear-gradient(top, #60575d, #4d444a);
+	background: -moz-linear-gradient(top, #60575d, #4d444a);
+	background: -ms-linear-gradient(top, #60575d, #4d444a);
+	background: -o-linear-gradient(top, #60575d, #4d444a);
+	background: linear-gradient(top, #60575d, #4d444a);
+	border: 1px solid #070707;
+	border-bottom: 1px solid #000000;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+
+	color: white;
+	font-weight: bold;
+	padding: 6px 20px;
+	text-align: center;
+	text-shadow: 0 -1px 0 #101010;
+}
+button:hover {
+	opacity:.85;
+	cursor: pointer;
+}
+button:active {
+	border: 1px solid #b1a8af;
+}
+
+
+#loginForm a {
+	text-decoration: none;
+	font-size: 16px;
+	letter-spacing: 2px;
+	font-family: sans-serif;
+	font-weight: lighter;
+	font-style: italic;
+	color: #433a40;
+}
+#back{
+	margin-left: -70px;
+	padding-left: -70px;
+}
+.href{
+	margin-top: 100px;
+}
+
+
+
+
