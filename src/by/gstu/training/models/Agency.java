@@ -54,7 +54,7 @@ public class Agency extends DbEntity {
 
     @Override
     public String toString() {
-        return "Agency{" +
+        return "Agency{" +super.toString()+
                 "title='" + title + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';

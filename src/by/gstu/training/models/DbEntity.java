@@ -24,4 +24,9 @@ public class DbEntity implements Serializable {
     public static DbEntity getInstance(DbEntity entity){
         return new DbEntity(entity.getId());
     }
+
+    @Override
+    public String toString() {
+        return "id=" + id +", ";
+    }
 }

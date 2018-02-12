@@ -13,7 +13,7 @@ public class MySqlDAOFactory extends DaoFactory {
     public static final String DATA_SOURCE_NAME = "jdbc/TravelAgency";
     private static DataSource dataSource;
 
-    public static DataSource getDataSource() {
+    public synchronized static DataSource getDataSource() {
         if(dataSource == null){
             dataSource = DbConnectionUtil.getDataSource(DATA_SOURCE_NAME);
         }

@@ -11,15 +11,15 @@ import java.sql.SQLException;
 import static by.gstu.training.logers.MyLoger.LOGER;
 
 public class DbConnectionUtil {
-    private static Connection connection;
-    private static PreparedStatement prSt;
-    public static PreparedStatement getPrepareStatement(DataSource dataSource, String sqlQuery){
+    private Connection connection;
+    private PreparedStatement prSt;
+    public PreparedStatement getPrepareStatement(DataSource dataSource, String sqlQuery){
         connection = getConnection(dataSource);
         prSt = getPrepareStatement(connection,sqlQuery);
         return prSt;
     }
 
-    public static PreparedStatement getPrepareStatement(Connection connection, String sqlQuery){
+    public PreparedStatement getPrepareStatement(Connection connection, String sqlQuery){
         try {
             prSt = connection.prepareStatement(sqlQuery);
             return prSt;
@@ -28,7 +28,7 @@ public class DbConnectionUtil {
             return null;
         }
     }
-    public static void closePrepareStatement(PreparedStatement st){
+    public  static void closePrepareStatement(PreparedStatement st){
         if (st != null)
             try {
                 st.close();
@@ -36,11 +36,11 @@ public class DbConnectionUtil {
                 LOGER.error("Can't close PreparedStatement. Exception message: " + e.getMessage(), e);
             }
     }
-    public static void closePrepareStatement(){
+    public void closePrepareStatement(){
         closeConnection();
         closePrepareStatement(prSt);
     }
-    public static Connection getConnection(DataSource dataSource) {
+    public  static   Connection getConnection(DataSource dataSource) {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class DbConnectionUtil {
                 LOGER.error("Can't close Connection. Exception message: " + e.getMessage(), e);
             }
     }
-    public static void closeConnection() {
+    public  void closeConnection() {
         closeConnection(connection);
     }
 

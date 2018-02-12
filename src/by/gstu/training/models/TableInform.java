@@ -3,81 +3,132 @@ package by.gstu.training.models;
 public class TableInform {
     public final static TableInform ACCOUNTS_INFORM =
             new TableInform("Accounts",
+                    new String[]{
                     "AccountId",
-                    "(?,?,?,?)",
-                    "AccountId= ?, Login = ?, Password = ?, AccessLevel = ?");
+                            "Login",
+                            "Password",
+                            "AccessLevel"
+                    });
 
     public final static TableInform USERS_INFORM  =
             new TableInform("Users",
-                    "UserId",
-                    "(?,?,?,?,?,?,?)",
-                    "UserId= ?, FirstName = ?, LastName = ?, PhoneNumber = ?, PassportNumber = ?, PassportSeries = ?, AccountId = ?");
+                    new String[]{
+                            "UserId",
+                            "FirstName",
+                            "LastName",
+                            "PhoneNumber",
+                            "PassportNumber",
+                            "PassportSeries",
+                            "Discount",
+                            "AccountId"
+                    });
+
 
     public final static TableInform TOURS_INFORM  =
             new TableInform("Tours",
-                    "TourId",
-                    "(?,?,?,?,?,?,?)",
-                    "TourId= ?, StartDate = ?, EndDate = ?, Price = ?, Type = ?, ClientAccountId = ?, TravelAgentId = ?");
+                    new String[]{
+                            "TourId",
+                            "Name",
+                            "StartDate",
+                            "EndDate",
+                            "Price",
+                            "IsSelled",
+                            "IsBurning",
+                            "Type",
+                            "UserId",
+                            "TravelAgentId"
+                    });
+
 
     public final static TableInform AGENCIES_INFORM  =
             new TableInform("Agencies",
-                    "AgencyId",
-                    "(?,?,?)",
-                    "AgencyId= ?, Title = ?, PhoneNumber = ?");
+                    new String[]{
+                            "AgencyId",
+                            "Title",
+                            "PhoneNumber"
+                    });
 
     public final static TableInform TRAVELAGENTS_INFORM  =
             new TableInform("TravelAgents",
-                    "TravelAgentId",
-                    "(?,?,?,?,?)",
-                    "TravelAgentId= ?, Name = ?, AgencyId = ?, AccountId = ?, Salary = ?");
+                    new String[]{
+                            "TravelAgentId",
+                            "Name",
+                            "AgencyId",
+                            "AccountId",
+                            "Salary"
+                    });
+
 
 
 
     private String tableName;
     private String idColumnName;
+    private String parameters;
     private String insertedParameters;
     private String updatedParameters;
     private int countParameters;
 
 
-    private TableInform(String tableName, String idColumnName, String insertedParameters, String updatedParameters) {
+    private TableInform(String tableName, String[] columns) {
         this.tableName = tableName;
-        this.idColumnName = idColumnName;
-        this.insertedParameters = insertedParameters;
-        this.updatedParameters = updatedParameters;
-        this.countParameters = insertedParameters.split("\\?").length-1;
+        this.countParameters = columns.length;
+        this.idColumnName = columns[0];
+        this.insertedParameters  = makeInsertedParameters(countParameters);
+        this.updatedParameters = makeUpdatedParameters(columns);
+        this.parameters = makeParameters(columns);
+    }
+
+    private String makeInsertedParameters(int count){
+        count--;
+        String res = "(";
+        for(int i=0; i< count-1;i++){
+            res += "?,";
+        }
+        if(count>1)
+            res += "?)";
+        return res;
+    }
+
+    private String makeUpdatedParameters(String[] columns){
+        String res = "";
+        for(int i=1; i< columns.length-1;i++){
+            res += columns[i]+ "=?,";
+        }
+        if(columns.length-1>=0)
+            res += columns[columns.length-1]+"=?";
+        return res;
+    }
+
+    private String makeParameters(String[] columns){
+        if(columns.length<2)
+            return "";
+
+        String res = "(";
+        for(int i=1; i< columns.length-1;i++){
+            res += columns[i]+ ",";
+        }
+        res += columns[columns.length-1]+")";
+        return res;
     }
 
     public String getTableName() {
         return tableName;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
     public String getIdColumnName() {
         return idColumnName;
     }
 
-    public void setIdColumnName(String idColumnName) {
-        this.idColumnName = idColumnName;
+    public String getParameters() {
+        return parameters;
     }
 
     public String getInsertedParameters() {
         return insertedParameters;
     }
 
-    public void setInsertedParameters(String insertedParameters) {
-        this.insertedParameters = insertedParameters;
-    }
-
     public String getUpdatedParameters() {
         return updatedParameters;
-    }
-
-    public void setUpdatedParameters(String updatedParameters) {
-        this.updatedParameters = updatedParameters;
     }
 
     public int getCountParameters() {

@@ -38,7 +38,7 @@ public class MySqlAccountDao extends AbstractMySqlDao<Account> implements Accoun
         String selectSqlQuery = "SELECT * FROM "+tableInform.getTableName()+
                 " WHERE Login = ?";
 
-        PreparedStatement pst = DbConnectionUtil.
+        PreparedStatement pst = connectionUtil.
                 getPrepareStatement(MySqlDAOFactory.getDataSource(),selectSqlQuery);
         ResultSet rs = null;
         try {
@@ -58,7 +58,7 @@ public class MySqlAccountDao extends AbstractMySqlDao<Account> implements Accoun
                     LOGER.error("Can't close ResultSet (method: select, login: "+login+
                             "\n Exception message: " + e.getMessage());
                 }
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
 
 

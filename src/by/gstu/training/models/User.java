@@ -6,19 +6,21 @@ public class User extends DbEntity{
     private String phoneNumber;
     private int passportNumber;
     private String passportSeries;
+    private int discount;
     private long accountId;
 
 
     public User() {
     }
 
-    public User(long id, String firstName, String lastName, String phoneNumber, int passportNumber, String passportSeries, long accountId) {
+    public User(long id, String firstName, String lastName, String phoneNumber, int passportNumber, String passportSeries, int discount, long accountId) {
        super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.passportNumber = passportNumber;
         this.passportSeries = passportSeries;
+        this.discount = discount;
         this.accountId = accountId;
     }
 
@@ -29,7 +31,9 @@ public class User extends DbEntity{
                 us.getLastName(),
                 us.getPhoneNumber(),
                 us.getPassportNumber(),
-                us.getPassportSeries(), us.getAccountId());
+                us.getPassportSeries(),
+                us.getDiscount(),
+                us.getAccountId());
     }
 
     public String getFirstName() {
@@ -80,6 +84,14 @@ public class User extends DbEntity{
         this.accountId = accountId;
     }
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +100,7 @@ public class User extends DbEntity{
         User user = (User) o;
 
         if (getPassportNumber() != user.getPassportNumber()) return false;
+        if (getDiscount() != user.getDiscount()) return false;
         if (getAccountId() != user.getAccountId()) return false;
         if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
             return false;
@@ -105,18 +118,20 @@ public class User extends DbEntity{
         result = 31 * result + (getPhoneNumber() != null ? getPhoneNumber().hashCode() : 0);
         result = 31 * result + getPassportNumber();
         result = 31 * result + (getPassportSeries() != null ? getPassportSeries().hashCode() : 0);
+        result = 31 * result + getDiscount();
         result = 31 * result + (int) (getAccountId() ^ (getAccountId() >>> 32));
         return result;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "User{" +super.toString()+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", passportNumber=" + passportNumber +
                 ", passportSeries='" + passportSeries + '\'' +
+                ", discount=" + discount +
                 ", accountId=" + accountId +
                 '}';
     }

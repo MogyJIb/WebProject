@@ -13,7 +13,7 @@
 
     <servlet>
         <servlet-name>getAllToursServlet</servlet-name>
-        <servlet-class>by.gstu.training.controllers.GetAllToursServlet</servlet-class>
+        <servlet-class>by.gstu.training.controllers.tours.GetAllToursServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getAllToursServlet</servlet-name>
@@ -22,13 +22,57 @@
 
     <servlet>
         <servlet-name>loginServlet</servlet-name>
-        <servlet-class>by.gstu.training.controllers.LoginServlet</servlet-class>
+        <servlet-class>by.gstu.training.controllers.auth.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>by.gstu.training.controllers.auth.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>by.gstu.training.controllers.auth.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>tourHandeServlet</servlet-name>
+        <servlet-class>by.gstu.training.controllers.tours.TourHandleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tourHandeServlet</servlet-name>
+        <url-pattern>/tourHandle</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userHandleServlet</servlet-name>
+        <servlet-class>by.gstu.training.controllers.UserHandleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userHandleServlet</servlet-name>
+        <url-pattern>/userHandle</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>updateTourServlet</servlet-name>
+        <servlet-class>by.gstu.training.controllers.tours.UpdateTourServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updateTourServlet</servlet-name>
+        <url-pattern>/updateTour</url-pattern>
+    </servlet-mapping>
 
 
     <servlet>
@@ -37,7 +81,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
-        <url-pattern>/hg</url-pattern>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
 

@@ -2,6 +2,7 @@ package by.gstu.training.controllers;
 
 
 import by.gstu.training.database.common.DaoFactory;
+import by.gstu.training.models.Tour;
 
 import javax.naming.Context;
 import javax.servlet.ServletException;
@@ -36,9 +37,11 @@ public class TestRunnerController extends HttpServlet {
 
             DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.MYSQL);
 
-            o(out,factory.getAccountDao().selectAll());
+            printArr(out,factory.getTourDao().selectAll());
 
-
+            out.print("<br><br>update<br>");
+            factory.getTourDao().update(new Tour(5,"new","new","new",1002,false,false,"new",0,0));
+            printArr(out,factory.getTourDao().selectAll());
 
         } catch (IOException e) {
             out.print(e.getMessage()+"<br>");
@@ -48,7 +51,7 @@ public class TestRunnerController extends HttpServlet {
 
     }
 
-    private void o(PrintWriter out, List entities){
+    private void printArr(PrintWriter out, List entities){
         for(Object entity : entities){
             out.print(entity+"<br>");
         }

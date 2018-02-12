@@ -87,7 +87,7 @@ public class TravelAgent extends DbEntity{
 
     @Override
     public String toString() {
-        return "TravelAgent{" +
+        return "TravelAgent{" +super.toString()+
                 "name='" + name + '\'' +
                 ", salary=" + salary +
                 ", agencyId=" + agencyId +

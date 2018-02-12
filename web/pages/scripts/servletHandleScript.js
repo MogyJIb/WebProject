@@ -82,3 +82,37 @@ function formToJson(formName) {
     jsonData+='}';
     return jsonData;
 }
+
+function jsonToForm(formName,jsonData) {
+    var form = document.getElementById(formName);
+    JSON.parse(jsonData, function(key, value) {
+        var element = form[key];
+        if(element!=null){
+            element.value = value;
+        }
+        return value;
+    });
+}
+function setJson(jsonData) {
+    JSON.parse(jsonData, function(key, value) {
+        var element = document.getElementById(key);
+        if(element != null && element != undefined){
+            element.innerHTML = value;
+        }
+        return value;
+    });
+}
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlParameters()
+{
+    var parameters = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        parameters.push(hash[0]);
+        parameters[hash[0]] = hash[1];
+    }
+    return parameters;
+}

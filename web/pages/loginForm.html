@@ -3,33 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Log In</title>
-    <link href="styles/loginFormStyle.css" rel="stylesheet">
+    <link href="styles/formStyle.css" rel="stylesheet">
     <script src="scripts/servletHandleScript.js"></script>
+    <script src="scripts/validationScript.js"></script>
 
     <script>
 
 
-        var loginFunction = function(request)
-        {
-            var outData = JSON.parse(request.responseText);
-            if(outData.loginErrorsMassage!=undefined) {
-                document.getElementById("loginErrors").innerHTML += "<div>" + outData.loginErrorsMassage + "</div>";
-            }
-            if(outData.passwordErrorsMassage!=undefined){
-                document.getElementById("passwordErrors").innerHTML += "<div>"+outData.passwordErrorsMassage+"</div>";
-            }
-        }
+
         function onClickLoginButton() {
-            sendRequest("POST","/login",formToJson("loginForm"),loginFunction,"application/json; charset=utf-8");
+            if(loginFormValid()){
+                sendRequest("POST","/login",formToJson("loginForm"),checkErrorsLoginsRequest,"application/json; charset=utf-8");
+            }
         }
+
     </script>
 	</head>
 <body>
 
     <div class="loginFormContainer">
-        <form id="loginForm">
+        <form id="loginForm" class="form">
             <ul>
-                <input type="hidden" name="id" value="0">
+                <input type="hidden" name="id" value="-1">
                 <li>
                     <h2>Sing In information</h2>
                     <div class="required_notification">* Denotes Required Field</div>
@@ -48,9 +43,9 @@
 
                     </div>
                 </li>
-                <input type="hidden" name="accessLevel" value="0">
+                <input type="hidden" name="accessLevel" value="-1">
                 <li>
-                    <button id="loginButton" type="submit" onclick='onClickLoginButton()'>Sing In</button>
+                    <button id="loginButton" onclick='onClickLoginButton()'>Sing In</button>
                 </li>
 
 

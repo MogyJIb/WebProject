@@ -11,40 +11,88 @@
   <head>
     <title>Travel agency</title>
 
+    <link href="styles/indexStyles.css" rel="stylesheet">
     <link href="styles/indexNavStyle.css" rel="stylesheet">
-    <link href="styles/selectListStyle.css" rel="stylesheet">
+    <link href="styles/tableStyle.css" rel="stylesheet">
+
 
     <script src="scripts/servletHandleScript.js"></script>
 
+    <script>
+      var accountId = null;
+
+            var account=null;
+            var getAccount = function(request)
+            {
+                var menuAuth = document.getElementById("menu-auth");
+
+                account =request.responseText;
+                if(account!="null"){
+                    account = JSON.parse(account);
+                    accountId = account.id;
+                    menuAuth.innerHTML = '<li><a> Hello '+account.login+'! </a></li><li><a href="/logout">Logout</a></li>';
+                }else{
+                    menuAuth.innerHTML = '<li><a href="loginForm.html">Login</a></li> <li><a href="registerForm.html">Register</a></li>';
+                }
+            }
+          var args = "isSelled=false";
+            sendRequest("GET","/login",args,getAccount,"");
+
+
+
+
+
+      var getToursData = function(request)
+        {
+            var toursArr = JSON.parse(request.responseText);
+            var out = "";
+            for(var i = 0; i < toursArr.length; i++) {
+                out += '<tr>';
+                out += '<td>'+toursArr[i].price+'</td>';
+                if(accountId != null){
+                    out += '<td><a href="/pages/tourDetail.html?tourId='+toursArr[i].id+'&accountId='+accountId+'">'+toursArr[i].name+'</a></td>';
+                }
+                else{
+                    out += '<td>'+toursArr[i].name+'</td>';
+                }
+                out += '<td>'+toursArr[i].type+'</td>';
+                out +=  '<td>'+toursArr[i].startDate+'</td>';
+                out += '<td>'+toursArr[i].endDate+'</td>';
+                out += ' </tr></a>';
+            }
+            document.getElementById("toursTable").innerHTML += out;
+        }
+        sendRequest("GET","/getAllTours","",getToursData,"");
+    </script>
 
   </head>
   <body>
 
   <nav class="top-menu">
-    <a class="navbar-logo" href=""><img src="http://liyacruise.com/wp-content/uploads/2016/09/logo.png"></a>
+    <a class="navbar-logo" href="index.html"><img src="http://liyacruise.com/wp-content/uploads/2016/09/logo.png"></a>
     <ul class="menu-main">
-      <li><a href="#">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="#">Tours</a></li>
       <li><a href="#">Agencies</a></li>
       <li><a href="#">About</a></li>
     </ul>
     <ul id="menu-auth" class="menu-main">
-      <li><a href="loginForm.html">Login</a></li>
-      <li><a href="registerForm.html">Register</a></li>
+
     </ul>
   </nav>
+  <div class="mainContent">
+    <table id = "toursTable">
+      <caption>Tours</caption>
+      <tr>
+        <th>price</th>
+        <th>name</th>
+        <th>type</th>
+        <th>start date</th>
+        <th>end date</th>
+      </tr>
+    </table>
 
-  <select id = "toursSelectList"  size="8" >
 
-  </select>
-  <div id = "dd"></div>
-  <script>
-      var getToursData = function(request)
-      {
-          var out =request.responseText;
-          document.getElementById("dd").innerHTML =out;
-      }
-      sendRequest("GET","/getAllTours","",getToursData,"");
-  </script>
+  </div>
   </body>
 </html>

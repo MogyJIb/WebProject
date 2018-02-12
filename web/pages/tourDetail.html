@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour details</title>
+
+
+    <link href="styles/tourDetailStyle.css" rel="stylesheet">
+    <link href="styles/formStyle.css" rel="stylesheet">
+    <link href="styles/tableStyle.css" rel="stylesheet">
+    <script src="scripts/servletHandleScript.js"></script>
+    <script src="scripts/validationScript.js"></script>
+
+
+    <script>
+        var args = "";
+
+        var getTourData = function(request)
+        {
+            setJson(request.responseText);
+        }
+
+        args = "tourId=" +  getUrlParameters()["tourId"];
+        sendRequest("GET","/tourHandle",args,getTourData,"");
+
+        var getUserData = function(request)
+        {
+            jsonToForm("buyingForm",request.responseText)
+        }
+
+        var accountId = getUrlParameters()["accountId"];
+
+
+        args = "accountId=" +  accountId;
+        sendRequest("GET","/userHandle",args,getUserData,"");
+
+        function onClickBuyTour(){
+            if(formValidation("buyingForm")){
+                var jsonData = formToJson("buyingForm")
+                sendRequest("POST","/userHandle",jsonData,checkErrorsRequest,"application/json; charset=utf-8");
+                args = "tourId=" +  getUrlParameters()["tourId"];
+                sendRequest("GET","/updateTour",args,checkErrorsRequest,"");
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<div class="container">
+<div class="left">
+    <table id = "tourTable">
+        <caption>Tour's information</caption>
+        <tr>
+            <td><label>Name</label></td>
+            <td><span id="name"></span></td>
+        </tr>
+        <tr>
+            <td><label>Start date</label></td>
+            <td><span id="startDate"></span></td>
+        </tr>
+        <tr>
+            <td><label>End date</label></td>
+            <td><span id="endDate"></span></td>
+        </tr>
+        <tr>
+            <td><label>Price</label></td>
+            <td><span id="price"></span></td>
+        </tr>
+        <tr>
+            <td><label>Burning</label></td>
+            <td><span id="isBurning"></span></td>
+        </tr>
+        <tr>
+            <td><label>Type</label></td>
+            <td><span id="type"></span></td>
+        </tr>
+    </table>
+</div>
+    <div class="right">
+    <form id="buyingForm" class="form">
+        <ul>
+            <input type="hidden" name="id" value="-1">
+            <li>
+                <h2>Contact Information</h2>
+                <div class="required_notification">* Denotes Required Field</div>
+            </li>
+            <li>
+                <label >First name: *</label>
+                <input type="text" name="firstName" placeholder="First name"><br>
+                <div id="firstName" class="required_notification">
+
+                </div>
+            </li>
+            <li>
+                <label >Last name: *</label>
+                <input type="text" name="lastName" placeholder="Last name"><br>
+                <div id="lastName" class="required_notification">
+
+                </div>
+            </li>
+            <li>
+                <label >Phone number: *</label>
+                <input type="text" name="phoneNumber" placeholder="Phone number"><br>
+                <div id="phoneNumber" class="required_notification">
+
+                </div>
+            </li>
+            <li>
+                <label >Passport number: *</label>
+                <input type="text" name="passportNumber" placeholder="Passport number"><br>
+                <div id="passportNumber" class="required_notification">
+
+                </div>
+            </li>
+            <li>
+                <label >Passport series: *</label>
+                <input type="text" name="passportSeries" placeholder="Passport series"><br>
+                <div id="passportSeries" class="required_notification">
+
+                </div>
+            </li>
+            <input type="hidden" name="discount" value="-1">
+            <input type="hidden" name="accountId" value="-1">
+
+            <li>
+                <button id="buyTour" onclick='onClickBuyTour()'>Buy tour</button>
+            </li>
+
+
+        </ul>
+
+        <div class="href">
+            <a id="back" href="index.html">Back</a>
+        </div>
+    </form>
+    </div>
+    <div class="clear"/>
+    <script>
+        var buyingForm = document.getElementById("buyingForm");
+        if(buyingForm!=null){
+            buyingForm.accountId.value = accountId;
+        }
+    </script>
+
+</div>
+</body>
+</html>

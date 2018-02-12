@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+}
+.mainContent{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -15,9 +15,11 @@ import static by.gstu.training.logers.MyLoger.LOGER;
 
 public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDao<Integer,T> {
     protected TableInform tableInform;
+    protected DbConnectionUtil connectionUtil;
 
     public AbstractMySqlDao(TableInform tableInform){
         this.tableInform = tableInform;
+        this.connectionUtil = new DbConnectionUtil();
     }
 
     @Override
@@ -28,8 +30,7 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
 
         ResultSet rs = null;
         try {
-
-            rs = DbConnectionUtil.
+            rs = connectionUtil.
                     getPrepareStatement(MySqlDAOFactory.getDataSource(),selectAllSqlQuery).
                     executeQuery();
             while (rs.next())
@@ -46,7 +47,7 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
                     LOGER.error("Can't close ResultSet (method: selectAll)." +
                             "\n Exception message: " + e.getMessage());
                 }
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
 
 
@@ -55,13 +56,13 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
     }
 
     @Override
-    public T select(long id) {
+    public  T select(long id) {
         T entity = null;
 
         String selectSqlQuery = "SELECT * FROM "+tableInform.getTableName()+
                 " WHERE "+tableInform.getIdColumnName()+" = ?";
 
-        PreparedStatement pst = DbConnectionUtil.
+        PreparedStatement pst = connectionUtil.
                 getPrepareStatement(MySqlDAOFactory.getDataSource(),selectSqlQuery);
         ResultSet rs = null;
         try {
@@ -81,7 +82,7 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
                     LOGER.error("Can't close ResultSet (method: select, id: "+id+")." +
                             "\n Exception message: " + e.getMessage());
                 }
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
 
 
@@ -89,11 +90,11 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
     }
 
     @Override
-    public void insert(T entity) {
-        String insertSqlQuery = "INSERT INTO "+tableInform.getTableName()+
+    public  void insert(T entity) {
+        String insertSqlQuery = "INSERT INTO "+tableInform.getTableName()+tableInform.getParameters()+
                 " VALUES "+tableInform.getInsertedParameters();
 
-        PreparedStatement pst = DbConnectionUtil.
+        PreparedStatement pst = connectionUtil.
                 getPrepareStatement(MySqlDAOFactory.getDataSource(),insertSqlQuery);
         try {
             setEntityToPS(pst,entity);
@@ -103,28 +104,28 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
             LOGER.error("Can't executeUpdate statement (method: insert, entity: "+
                     entity.toString()+"). \n Exception message: " + e.getMessage());
         } finally {
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
     }
 
     @Override
-    public void update(T entity) {
+    public  void update(T entity) {
         String updateSqlQuery = "UPDATE "+tableInform.getTableName()+
                 " SET "+tableInform.getUpdatedParameters()+
                 " WHERE "+tableInform.getIdColumnName()+" = ?";
 
-        PreparedStatement pst = DbConnectionUtil.
+        PreparedStatement pst = connectionUtil.
                 getPrepareStatement(MySqlDAOFactory.getDataSource(),updateSqlQuery);
         try {
             setEntityToPS(pst,entity);
-            pst.setLong(tableInform.getCountParameters()+1,entity.getId());
+            pst.setLong(tableInform.getCountParameters(),entity.getId());
             pst.executeUpdate();
 
         } catch (SQLException e) {
             LOGER.error("Can't executeUpdate statement (method: update, entity: "+
                     entity.toString()+"). \n Exception message: " + e.getMessage());
         } finally {
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
     }
 
@@ -132,7 +133,7 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
     public void delete(long id) {
         String deleteAllSqlQuery = "DELETE FROM "+tableInform.getTableName()+" WHERE "+tableInform.getIdColumnName()+" = ?";
 
-        PreparedStatement pst = DbConnectionUtil.
+        PreparedStatement pst = connectionUtil.
                 getPrepareStatement(MySqlDAOFactory.getDataSource(),deleteAllSqlQuery);
         try {
             pst.setLong(1,id);
@@ -140,7 +141,7 @@ public abstract class AbstractMySqlDao<T extends DbEntity> implements AbstractDa
         } catch (SQLException e) {
             LOGER.error("Can't create ResultSet (method: select, id: "+id+"). \n Exception message: " + e.getMessage());
         } finally {
-            DbConnectionUtil.closePrepareStatement();
+            connectionUtil.closePrepareStatement();
         }
     }
 

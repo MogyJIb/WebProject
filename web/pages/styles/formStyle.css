@@ -5,7 +5,7 @@
 	align-items: center;
 }
 
-#loginForm{
+.form{
 	margin: 0px auto;
 }
 ::-webkit-input-placeholder{
@@ -14,28 +14,28 @@
 :-moz-placeholder{
 	color: rgba(76,99,137,0.62);
 }
-#loginForm *:focus {outline: none;}
+.form *:focus {outline: none;}
 
 
-#loginForm ul {
+.form ul {
 	width:350px;
 	list-style-type:none;
 	list-style-position:outside;
 	margin:0px;
 	padding:0px;
 }
-#loginForm li{
+.form li{
 		margin-left:50px;
 	  padding:12px;
 	  border-bottom:1px solid #eee;
 	  position:relative;
   }
 
-#loginForm  li:first-child, #loginForm li:last-child {
+.form  li:first-child, #loginForm li:last-child {
 	border-bottom:1px solid #777;
 }
 
-#loginForm  h2 {
+.form  h2 {
 	margin:0;
 	display: inline;
 }
@@ -44,19 +44,19 @@
 	margin:5px 3px 0 0;
 }
 
-#loginForm label {
+.form label {
 	width:150px;
 	margin-top: 3px;
 	display:inline-block;
 	float:left;
 	padding:3px;
 }
-#loginForm input {
+.form input {
 	height:20px;
 	width:250px;
 	padding:5px 8px;
 }
-#loginForm button {margin-left:100px;}
+.form button {margin-left:100px;}
 
 button {
 	background-color: #4d444a;
@@ -89,7 +89,7 @@ button:active {
 }
 
 
-#loginForm a {
+.form a {
 	text-decoration: none;
 	font-size: 16px;
 	letter-spacing: 2px;

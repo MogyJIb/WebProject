@@ -24,8 +24,9 @@ public class DbDataConverter {
             int passportNumber = rs.getInt("PassportNumber");
             String passportSeries = rs.getString("PassportSeries");
             long accountId = rs.getLong("AccountId");
+            int discount = rs.getInt("Discount");
 
-            return  new User(id,firstName,lastName,phoneNumber,passportNumber,passportSeries, accountId);
+            return  new User(id,firstName,lastName,phoneNumber,passportNumber,passportSeries, discount, accountId);
         } catch (SQLException e) {
             LOGER.error("Can't get data of User from column of ResultSet." +
                     " \n Exception message: " + e.getMessage());
@@ -39,12 +40,12 @@ public class DbDataConverter {
             return;
         }
         try {
-            ps.setLong(1,user.getId());
-            ps.setString(2,user.getFirstName());
-            ps.setString(3,user.getLastName());
-            ps.setString(4,user.getPhoneNumber());
-            ps.setInt(5,user.getPassportNumber());
-            ps.setString(6,user.getPassportSeries());
+            ps.setString(1,user.getFirstName());
+            ps.setString(2,user.getLastName());
+            ps.setString(3,user.getPhoneNumber());
+            ps.setInt(4,user.getPassportNumber());
+            ps.setString(5,user.getPassportSeries());
+            ps.setInt(6,user.getDiscount());
             ps.setLong(7,user.getAccountId());
         } catch (SQLException e) {
             LOGER.error("Can't set data of User to PreparedStatement." +
@@ -76,10 +77,9 @@ public class DbDataConverter {
             return;
         }
         try {
-            ps.setLong(1,account.getId());
-            ps.setString(2,account.getLogin());
-            ps.setString(3,account.getPassword());
-            ps.setInt(4,account.getAccessLevel());
+            ps.setString(1,account.getLogin());
+            ps.setString(2,account.getPassword());
+            ps.setInt(3,account.getAccessLevel());
         } catch (SQLException e) {
             LOGER.error("Can't set data of Account to PreparedStatement." +
                     " \n Exception message: " + e.getMessage());
@@ -111,11 +111,10 @@ public class DbDataConverter {
             return;
         }
         try {
-            ps.setLong(1,travelAgent.getId());
-            ps.setString(2,travelAgent.getName());
-            ps.setLong(3,travelAgent.getAccountId());
-            ps.setLong(4,travelAgent.getAgencyId());
-            ps.setDouble(5,travelAgent.getSalary());
+            ps.setString(1,travelAgent.getName());
+            ps.setLong(2,travelAgent.getAccountId());
+            ps.setLong(3,travelAgent.getAgencyId());
+            ps.setDouble(4,travelAgent.getSalary());
         } catch (SQLException e) {
             LOGER.error("Can't set data of TravelAgent to PreparedStatement." +
                     " \n Exception message: " + e.getMessage());
@@ -145,9 +144,8 @@ public class DbDataConverter {
             return;
         }
         try {
-            ps.setLong(1,agency.getId());
-            ps.setString(2,agency.getTitle());
-            ps.setString(3,agency.getPhoneNumber());
+            ps.setString(1,agency.getTitle());
+            ps.setString(2,agency.getPhoneNumber());
         } catch (SQLException e) {
             LOGER.error("Can't set data of Agency to PreparedStatement." +
                     " \n Exception message: " + e.getMessage());
@@ -167,8 +165,11 @@ public class DbDataConverter {
             String type = rs.getString("Type");
             long userId = rs.getLong("UserId");
             long travelAgentId = rs.getLong("TravelAgentId");
+            String name = rs.getString("Name");
+            boolean isSelled = rs.getBoolean("IsSelled");
+            boolean isBurning = rs.getBoolean("IsBurning");
 
-            return  new Tour(id,startDate,endDate,price,type,userId,travelAgentId);
+            return  new Tour(id, name, startDate,endDate,price, isSelled, isBurning, type,userId,travelAgentId);
         } catch (SQLException e) {
             LOGER.error("Can't get data of Tour from column of ResultSet. \n Exception message: " + e.getMessage(),e);
             return null;
@@ -181,13 +182,15 @@ public class DbDataConverter {
             return;
         }
         try {
-            ps.setLong(1,tour.getId());
+            ps.setString(1,tour.getName());
             ps.setString(2,tour.getStartDate());
             ps.setString(3,tour.getEndDate());
             ps.setDouble(4,tour.getPrice());
-            ps.setString(5,tour.getType());
-            ps.setLong(6,tour.getUserId());
-            ps.setLong(7,tour.getTravelAgentId());
+            ps.setBoolean(5,tour.isSelled());
+            ps.setBoolean(6,tour.isBurning());
+            ps.setString(7,tour.getType());
+            ps.setLong(8,tour.getUserId());
+            ps.setLong(9,tour.getTravelAgentId());
         } catch (SQLException e) {
             LOGER.error("Can't set data of Tour to PreparedStatement." +
                     " \n Exception message: " + e.getMessage());

@@ -1,6 +1,9 @@
 package by.gstu.training.models;
 
 public class Account extends DbEntity{
+    public static final int ADMIN = 1;
+    public static final int USER = 2;
+
     private String login;
     private String password;
     private int accessLevel;
@@ -71,7 +74,7 @@ public class Account extends DbEntity{
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "Account{" +super.toString()+
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", accessLevel=" + accessLevel +

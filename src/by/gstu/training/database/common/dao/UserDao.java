@@ -4,5 +4,5 @@ import by.gstu.training.database.common.AbstractDao;
 import by.gstu.training.models.User;
 
 public interface UserDao extends AbstractDao<Integer,User> {
-
+    User selectByAccountId(long accountId);
 }
